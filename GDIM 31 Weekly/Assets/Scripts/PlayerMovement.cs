@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpSpeed = 5f;
     Vector2 moveInput;
     Rigidbody2D rb;
+    CapsuleCollider2D cc; 
     BoxCollider2D bc; 
     Animator playerAnimator; 
     void Start()
@@ -16,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
         //Initializing components
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        bc = GetComponent<BoxCollider2D>(); 
+        bc = GetComponent<BoxCollider2D>();
+        cc = GetComponent<CapsuleCollider2D>(); 
     }
 
 
