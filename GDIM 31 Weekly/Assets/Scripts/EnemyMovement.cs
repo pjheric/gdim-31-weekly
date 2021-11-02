@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(moveSpeed, 0f); 
     }
+    //On trigger enter (when boxcollider hits a wall) move the other direction and flip the sprite around
     private void OnTriggerEnter2D(Collider2D collision)
     {
         moveSpeed = -moveSpeed;

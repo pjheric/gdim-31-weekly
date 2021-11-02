@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] GameObject healthPrefab;
     [SerializeField] GameObject emptyHealthPrefab;
-
+    //Drawed on with code instead of doing smoke and mirrors with showing and hiding health sprites.
     public void DrawHealth(int health, int maxHealth)
     {
         foreach (Transform child in transform)
