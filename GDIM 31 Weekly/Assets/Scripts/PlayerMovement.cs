@@ -7,35 +7,41 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
+    [SerializeField] Vector2 deathKick = new Vector2(3f, 3f); 
     Vector2 moveInput;
     Rigidbody2D rb;
-    CapsuleCollider2D cc; 
-    BoxCollider2D bc; 
-    Animator playerAnimator; 
+    CapsuleCollider2D bodyCollider; 
+    BoxCollider2D feetCollider; 
+    Animator playerAnimator;
+
+    bool isAlive = true; 
     void Start()
     {
         //Initializing components
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        bc = GetComponent<BoxCollider2D>();
-        cc = GetComponent<CapsuleCollider2D>(); 
+        feetCollider = GetComponent<BoxCollider2D>();
+        bodyCollider = GetComponent<CapsuleCollider2D>(); 
     }
 
 
     void Update()
     {
         //Retrieve run and flipping direction every frame. Check for jump separately
+        if(!isAlive) { return; }
         Run();
         FlipSprite();
+        Die(); 
     }
     void OnMove(InputValue value)
     {
+        if(!isAlive) { return; }
         moveInput = value.Get<Vector2>(); 
     }
     void OnJump(InputValue value)
     {
         //Instead of raycast, use a simple collision detection with Ground layer to determine if player is on a platform
-        if (!bc.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             return; 
         if(value.isPressed)
         {
@@ -57,4 +63,16 @@ public class PlayerMovement : MonoBehaviour
         if(playerMoving)
             transform.localScale = new Vector2(Mathf.Sign(rb.velocity.x), 1f); 
     }
+
+    void Die()
+    {
+        if(bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            playerAnimator.SetTrigger("Dying");
+            rb.velocity = deathKick; 
+        }
+
+    }
+
 }
