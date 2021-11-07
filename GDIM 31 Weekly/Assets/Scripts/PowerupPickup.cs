@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerupPickup : Pickup
 {
+    //Child class of Pickup, this powerup multiplies the player's movement speed by a multiplier for a duration.
     [SerializeField] float powerupDuration = 5f;
     [SerializeField] float moveSpeedMultiplier = 3f; 
     [SerializeField] GameObject player; 

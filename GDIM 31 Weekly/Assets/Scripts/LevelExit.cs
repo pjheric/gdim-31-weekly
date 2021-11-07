@@ -14,6 +14,7 @@ public class LevelExit : MonoBehaviour
         }
 
     }
+    //Really just here for futureproofing
     IEnumerator LoadNextLevel()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScenePersist : MonoBehaviour
 {
+    //Simple singleton pattern to persist/appropriately destroy objects
     void Awake()
     {
         int numScenePersists = FindObjectsOfType<ScenePersist>().Length;
