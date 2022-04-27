@@ -42,9 +42,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //Instead of raycast, use a simple collision detection with Ground layer to determine if player is on a platform
         if (!feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            return; 
+        {
+            playerAnimator.SetFloat("Height", 0); 
+            return;
+        }
         if(value.isPressed)
         {
+            playerAnimator.SetFloat("Height", 1); 
             rb.velocity += new Vector2(0f, jumpSpeed); 
         }
     }
@@ -54,7 +58,9 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = playerVelocity;
         //Epsilon is there specifically to prevent the player sprite from always facing right when standing still
         bool playerMoving = Mathf.Abs(rb.velocity.x) > Mathf.Epsilon;
-        playerAnimator.SetBool("isWalking", playerMoving); 
+        //playerAnimator.SetBool("isWalking", playerMoving);
+        playerAnimator.SetFloat("Velocity", rb.velocity.x);
+        playerAnimator.SetFloat("Height", 0); 
     }
 
     void FlipSprite()
